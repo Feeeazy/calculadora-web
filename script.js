@@ -3,21 +3,30 @@
 var displayScreen = document.getElementById('displayScreen')
 var screenEquation = document.getElementById('screenEquation')
 var num1 = 0
+var number2 = 0
 var actualOperation = ''
 var operationSimbol = ''
 var controlResult = 0
 var negativeNumber = 0
 var result = 0
+// var screenNumbers = []
 
 // Sempre que um elemento for clicado
 document.addEventListener('keyup',listenerKeyUp)
 document.addEventListener('click', listenerClick)
 
 function listenerClick(event) {
-    // console.log(event.target.id)
+    console.log(event.target.className)
+    console.log(event.target.id)
+    console.log(event.target.alt)
     let className = event.target.className
     let id = event.target.id
+    let alt = event.target.alt
     // let limit = 3
+
+    if(className == 'btnOperations' &&getDisplayScreen().length == 0) {
+        return false;
+    }
 
     if(id == 'btnLess' && getDisplayScreen().length == 0){
         if(negativeNumber < 1){
@@ -27,17 +36,33 @@ function listenerClick(event) {
         }
     }
 
-    // if(getDisplayScreen().length == 0) {
-    //     return false;
-    // }
+    if(className == 'btnNumbers') {
+        if(controlResult == 1){
+            clearAllDisplays()
+        }
+    }
 
     if(className == 'btnNumbers') {
         let valor = event.target.value
         setDisplayScreen(valor)
+        // screenNumbers.push(valor)
         return false
     }
 
+    if(id == 'btnBackSpace'|| alt == 'BackSpaceIcon') {
+        let screenValues = getDisplayScreen().value
+        let screenLength = getDisplayScreen().length
+        if(screenLength == 1) {
+            clearDisplayScreen()
+            return false
+        }
+        screenValues = screenValues.slice(0, screenLength - 1)
+        clearDisplayScreen()
+        setDisplayScreen(+screenValues)
+    }
+
     if(id == 'btnLess') {
+        if(getDisplayScreen().length < 2) return false
         let operation = event.target.id
         operationSimbol = event.target.innerText
         console.log(operation)
@@ -58,6 +83,7 @@ function listenerClick(event) {
     }
 
     if (className == "btnOperations") {
+        if(getDisplayScreen().value == '-') return false
         let operation = event.target.id
         operationSimbol = event.target.innerText
         console.log(operation)
@@ -112,6 +138,9 @@ function clearEntryDisplayScreen() {
 function clearAllDisplays() {
     displayScreen.innerText = ''
     screenEquation.innerText = ''
+    num1 = 0
+    number2 = 0
+    controlResult = 0
 }
 
 function clearScreenEquation(){
@@ -159,7 +188,10 @@ function setOperation(operation) {
     }
 
     if(operation == "btnLess") {
-        let number2 = getDisplayScreen().value
+        if(controlResult < 1) {
+            number2 = getDisplayScreen().value
+            controlResult = +controlResult + 1
+        }
         clearScreenEquation()
         setScreenEquation(num1, operationSimbol)
         setScreenEquation(number2, '=')
@@ -167,10 +199,10 @@ function setOperation(operation) {
         result = subtraction(Number(num1), Number(number2))
         setDisplayScreen(result)
 
-        if(controlResult < 1) {
-            num1 = number2
-            controlResult = +controlResult + 1
-        }
+        // if(controlResult < 1) {
+        //     num1 = number2
+        //     controlResult = +controlResult + 1
+        // }
         return false
     }
 
@@ -191,8 +223,10 @@ function setOperation(operation) {
     }
 
     if(operation == 'btnDivision') {
-        
-        let number2 = getDisplayScreen().value
+        if(controlResult < 1) {
+            number2 = getDisplayScreen().value
+            controlResult = +controlResult + 1
+        }
         clearScreenEquation()
         setScreenEquation(num1, operationSimbol)
         setScreenEquation(number2, '=')
@@ -201,10 +235,6 @@ function setOperation(operation) {
         setDisplayScreen(result)
         num1 = result
         
-        if(controlResult < 1) {
-            number2 = result
-            controlResult = +controlResult + 1
-        }
         return false
     }
 

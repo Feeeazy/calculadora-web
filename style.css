@@ -7,6 +7,7 @@ body {
     align-items: center;
     width: 100vw;
     height: 80vh;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #Calculadora {
@@ -21,14 +22,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
     flex-direction: column;
+    padding: 10px 10px 0px 10px;
 }
 
 #screenEquation {
-    width: 250px;
+    width: 230px;
     height: 25px;
     color: #fff;
+    text-align: right;
+    margin-left: -20px;
+    vertical-align: bottom;
 }
 
 #displayScreen {
@@ -60,10 +64,19 @@ body {
     margin-top: 10px;
 }
 
+.row1 {
+    display: flex;
+    justify-content: end;
+    align-items: unset;
+    margin-top: 10px;
+    margin-right: 10px
+}
+
 #btnN0 {
-    width: 120px;
+    width: 110px;
     color: #fff;
     text-align: center;
+    margin-right: 10px
 }
 
 .btnFunctions {
