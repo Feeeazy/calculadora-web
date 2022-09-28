@@ -3,7 +3,8 @@
 
 var displayScreen = document.getElementById('displayScreen')
 var screenEquation = document.getElementById('screenEquation')
-
+var num1 = 0
+var actualOperation = ''
 
 
 // Sempre que um elemento for clicado
@@ -26,7 +27,7 @@ function listenerClick(event) {
     }
 
     if (id == 'btnClearAll'){
-        clearDisplayScreen()
+        clearAllDisplays()
     }
 
     if (id == 'btnClearEntry'){
@@ -37,13 +38,15 @@ function listenerClick(event) {
         let operation = event.target.id
         let operationSimbol = event.target.innerText
         console.log(operation)
+        num1 = getDisplayScreen().value
+        actualOperation = operation
         setScreenEquation(getDisplayScreen().value, operationSimbol)
-        setOperation(operation)
+        clearEntryDisplayScreen()
+        // setOperation(operation)
     }
 
     if(id == 'btnEqual') {
-        let operation = event.target.id
-        setOperation(operation)
+        setOperation(actualOperation)
     }
 
 }
@@ -55,7 +58,13 @@ function setDisplayScreen(valor) {
 }
 
 function setScreenEquation(valor, operation) {
-    screenEquation.innerText = `${valor} ${operation}`
+    screenEquation.innerText += ` ${valor} ${operation}`
+}
+
+function getScreenEquation() {
+    return{
+        'value': screenEquation.innerText
+    }
 }
 
 function getDisplayScreen() {
@@ -67,11 +76,15 @@ function getDisplayScreen() {
 
 function clearDisplayScreen() {
     displayScreen.innerText = ''
-    screenEquation.innerText = ''
 }
 
 function clearEntryDisplayScreen() {
     displayScreen.innerText = ''
+}
+
+function clearAllDisplays() {
+    displayScreen.innerText = ''
+    screenEquation.innerText = ''
 }
 
 function listenerKeyUp(event) {
@@ -86,11 +99,11 @@ function sum(num1, num2) {
 }
 
 function setOperation(operation){
-    let number1 = getDisplayScreen().value
     if(operation == "btnMore"){
-        let number2 = getDisplayScreen
-
-        setDisplayScreen(sum(number1, number2))
+        let number2 = getDisplayScreen().value
+        setScreenEquation(number2, '=')
+        clearEntryDisplayScreen()
+        setDisplayScreen(sum(num1, number2))
     }
 
 }
