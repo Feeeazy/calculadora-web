@@ -1,11 +1,13 @@
 // var numSelecionado = document.
 
-
 var displayScreen = document.getElementById('displayScreen')
 var screenEquation = document.getElementById('screenEquation')
 var num1 = 0
 var actualOperation = ''
-
+var operationSimbol = ''
+var controlResult = 0
+var negativeNumber = 0
+var result = 0
 
 // Sempre que um elemento for clicado
 document.addEventListener('keyup',listenerKeyUp)
@@ -17,41 +19,66 @@ function listenerClick(event) {
     let id = event.target.id
     // let limit = 3
 
-    if(getDisplayScreen().length = 0) {
-        return false;
+    if(id == 'btnLess' && getDisplayScreen().length == 0){
+        if(negativeNumber < 1){
+            setDisplayScreen('-')
+            negativeNumber = +negativeNumber + 1
+            return false
+        }
     }
+
+    // if(getDisplayScreen().length == 0) {
+    //     return false;
+    // }
 
     if(className == 'btnNumbers') {
         let valor = event.target.value
         setDisplayScreen(valor)
+        return false
     }
 
-    if (id == 'btnClearAll'){
-        clearAllDisplays()
-    }
-
-    if (id == 'btnClearEntry'){
-        clearEntryDisplayScreen()
-    }
-
-    if (className == "btnOperations") {
+    if(id == 'btnLess') {
         let operation = event.target.id
-        let operationSimbol = event.target.innerText
+        operationSimbol = event.target.innerText
         console.log(operation)
         num1 = getDisplayScreen().value
         actualOperation = operation
         setScreenEquation(getDisplayScreen().value, operationSimbol)
         clearEntryDisplayScreen()
-        // setOperation(operation)
+    }
+
+    if (id == 'btnClearAll'){
+        clearAllDisplays()
+        return false
+    }
+
+    if (id == 'btnClearEntry'){
+        clearEntryDisplayScreen()
+        return false
+    }
+
+    if (className == "btnOperations") {
+        let operation = event.target.id
+        operationSimbol = event.target.innerText
+        console.log(operation)
+        num1 = getDisplayScreen().value
+        actualOperation = operation
+        clearScreenEquation()
+        setScreenEquation(num1, operationSimbol)
+        clearEntryDisplayScreen()
+        negativeNumber = 0
+        controlResult = 0
     }
 
     if(id == 'btnEqual') {
         setOperation(actualOperation)
+
     }
 
 }
 
 function setDisplayScreen(valor) {
+    if(valor == '-') return displayScreen.innerText += valor;
     if(isNaN(valor)) return false;
     console.log(`Setando display: ${valor}`)
     displayScreen.innerText += valor
@@ -87,6 +114,10 @@ function clearAllDisplays() {
     screenEquation.innerText = ''
 }
 
+function clearScreenEquation(){
+    screenEquation.innerText = ''
+}
+
 function listenerKeyUp(event) {
     // console.log(event.key)
     let keyNumberPress = event.key
@@ -98,12 +129,83 @@ function sum(num1, num2) {
     return (+num1 + +num2)
 }
 
-function setOperation(operation){
-    if(operation == "btnMore"){
+function subtraction(num1, num2) {
+    return (+num1 - +num2)
+}
+
+function multiplication(num1, num2) {
+    return (+num1 * +num2)
+}
+
+function division(num1, num2) {
+    return (+num1 / +num2)
+}
+
+function setOperation(operation) {
+    if(operation == "btnMore") {
         let number2 = getDisplayScreen().value
+        clearScreenEquation()
+        setScreenEquation(num1, operationSimbol)
         setScreenEquation(number2, '=')
         clearEntryDisplayScreen()
-        setDisplayScreen(sum(num1, number2))
+        result = sum(Number(num1), Number(number2))
+        setDisplayScreen(result)
+
+        if(controlResult < 1) {
+            num1 = number2
+            controlResult = +controlResult + 1
+        }
+        return false
+    }
+
+    if(operation == "btnLess") {
+        let number2 = getDisplayScreen().value
+        clearScreenEquation()
+        setScreenEquation(num1, operationSimbol)
+        setScreenEquation(number2, '=')
+        clearEntryDisplayScreen()
+        result = subtraction(Number(num1), Number(number2))
+        setDisplayScreen(result)
+
+        if(controlResult < 1) {
+            num1 = number2
+            controlResult = +controlResult + 1
+        }
+        return false
+    }
+
+    if(operation == 'btnMultiplication') {
+        let number2 = getDisplayScreen().value
+        clearScreenEquation()
+        setScreenEquation(num1, operationSimbol)
+        setScreenEquation(number2, '=')
+        clearEntryDisplayScreen()
+        result = multiplication(Number(num1), Number(number2))
+        setDisplayScreen(result)
+
+        if(controlResult < 1) {
+            num1 = number2
+            controlResult = +controlResult + 1
+        }
+        return false
+    }
+
+    if(operation == 'btnDivision') {
+        
+        let number2 = getDisplayScreen().value
+        clearScreenEquation()
+        setScreenEquation(num1, operationSimbol)
+        setScreenEquation(number2, '=')
+        clearEntryDisplayScreen()
+        result = division(Number(num1), Number(number2))
+        setDisplayScreen(result)
+        num1 = result
+        
+        if(controlResult < 1) {
+            number2 = result
+            controlResult = +controlResult + 1
+        }
+        return false
     }
 
 }
