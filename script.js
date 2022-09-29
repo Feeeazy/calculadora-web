@@ -9,7 +9,8 @@ var operationSimbol = ''
 var controlResult = 0
 var negativeNumber = 0
 var result = 0
-// var screenNumbers = []
+var screenValues = 0
+var screenLength = 0
 
 // Sempre que um elemento for clicado
 document.addEventListener('keyup',listenerKeyUp)
@@ -32,7 +33,7 @@ function listenerClick(event) {
         if(negativeNumber < 1){
             setDisplayScreen('-')
             negativeNumber = +negativeNumber + 1
-            return false
+            return
         }
     }
 
@@ -46,15 +47,15 @@ function listenerClick(event) {
         let valor = event.target.value
         setDisplayScreen(valor)
         // screenNumbers.push(valor)
-        return false
+        return
     }
 
     if(id == 'btnBackSpace'|| alt == 'BackSpaceIcon') {
-        let screenValues = getDisplayScreen().value
-        let screenLength = getDisplayScreen().length
+        screenValues = getDisplayScreen().value
+        screenLength = getDisplayScreen().length
         if(screenLength == 1) {
             clearDisplayScreen()
-            return false
+            return
         }
         screenValues = screenValues.slice(0, screenLength - 1)
         clearDisplayScreen()
@@ -62,7 +63,7 @@ function listenerClick(event) {
     }
 
     if(id == 'btnLess') {
-        if(getDisplayScreen().length < 2) return false
+        if(getDisplayScreen().length < 2) return
         let operation = event.target.id
         operationSimbol = event.target.innerText
         console.log(operation)
@@ -74,12 +75,14 @@ function listenerClick(event) {
 
     if (id == 'btnClearAll'){
         clearAllDisplays()
-        return false
+        negativeNumber = 0
+        return
     }
 
     if (id == 'btnClearEntry'){
         clearEntryDisplayScreen()
-        return false
+        negativeNumber = 0
+        return
     }
 
     if (className == "btnOperations") {

@@ -12,46 +12,38 @@ body {
 
 #Calculadora {
     width: 250px;
-    height: 440px;
+    height: 395px;
     background: #000;
     border-radius: 30px;
-
 }
 
 #display {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     padding: 10px 10px 0px 10px;
 }
 
 #screenEquation {
+    display: flex;
     width: 230px;
     height: 25px;
     color: #fff;
     text-align: right;
-    margin-left: -20px;
-    vertical-align: bottom;
 }
 
 #displayScreen {
     /* margin-top: 70px; */
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 230px;
     height: 50px;
     border-radius: 25px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     text-align: end;
     color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 50px;
-    margin: 0px 10px;
 
     text-overflow: clip;
-    max-width: 15ch;
     overflow: hidden;
     border: 1px;
     white-space: nowrap; 
@@ -64,19 +56,10 @@ body {
     margin-top: 10px;
 }
 
-.row1 {
-    display: flex;
-    justify-content: end;
-    align-items: unset;
-    margin-top: 10px;
-    margin-right: 10px
-}
-
 #btnN0 {
     width: 110px;
     color: #fff;
     text-align: center;
-    margin-right: 10px
 }
 
 .btnFunctions {
@@ -103,6 +86,8 @@ body {
     background: hsl(37deg 95% 49%);
     color: #fff;
     font-weight: bold;
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #btnEqual {
@@ -112,6 +97,8 @@ body {
     background: hsl(37deg 95% 49%);
     color: #fff;
     font-weight: bold;
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #btnLess {
@@ -121,7 +108,6 @@ body {
     background: hsl(37deg 95% 49%);
     color: #fff;
     font-weight: bold;
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace
 }
-/* * {
-    border-color: red;
-} */
